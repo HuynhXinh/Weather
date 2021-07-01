@@ -3,12 +3,12 @@ package com.example.data.feature
 import com.example.domain.feature.*
 
 interface WeatherDtoMapper {
-    fun toForeCast(dto: ForeCastDto): ForeCast
+    fun toWeather(dto: CityWeatherDto): CityWeather
 }
 
 class WeatherDtoMapperImpl : WeatherDtoMapper {
-    override fun toForeCast(dto: ForeCastDto): ForeCast {
-        return ForeCast(
+    override fun toWeather(dto: CityWeatherDto): CityWeather {
+        return CityWeather(
             city = toCity(dto.city),
             cod = dto.cod,
             message = dto.message,

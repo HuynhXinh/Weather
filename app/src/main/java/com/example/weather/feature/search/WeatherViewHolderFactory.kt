@@ -3,20 +3,20 @@ package com.example.weather.feature.search
 import android.view.ViewGroup
 import com.example.weather.R
 import com.example.weather.base.adapter.BaseViewHolder
-import com.example.weather.databinding.ItemForecastBinding
+import com.example.weather.databinding.ItemWeatherBinding
 import com.example.weather.util.get
 
 class WeatherViewHolderFactory(
     private val onClickItemListener: ((ItemWeather) -> Unit)? = null
 ) {
 
-    fun create(parent: ViewGroup, viewType: Int): ItemForeCastViewHolder {
-        return ItemForeCastViewHolder(
-            binding = parent[ItemForecastBinding::inflate]
+    fun create(parent: ViewGroup, viewType: Int): ItemWeatherViewHolder {
+        return ItemWeatherViewHolder(
+            binding = parent[ItemWeatherBinding::inflate]
         )
     }
 
-    inner class ItemForeCastViewHolder(val binding: ItemForecastBinding) :
+    inner class ItemWeatherViewHolder(val binding: ItemWeatherBinding) :
         BaseViewHolder<ItemWeather>(binding.root) {
 
         override fun bind(data: ItemWeather, position: Int) = with(binding) {

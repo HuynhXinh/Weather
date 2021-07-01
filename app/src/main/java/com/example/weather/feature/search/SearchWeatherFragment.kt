@@ -18,11 +18,11 @@ class SearchWeatherFragment : Fragment(R.layout.fragment_search_weather) {
 
     private val binding by viewBinding(FragmentSearchWeatherBinding::bind)
 
-    private val searchForeCaseNavigator: SearchForeCaseNavigator by inject()
+    private val searchWeatherNavigator: SearchWeatherNavigator by inject()
 
     private val adapter = DifferentAdapter(
         viewHolderFactory = WeatherViewHolderFactory(
-            onClickItemListener = { searchForeCaseNavigator.openDetail() }
+            onClickItemListener = { searchWeatherNavigator.openDetail() }
         )::create
     )
 

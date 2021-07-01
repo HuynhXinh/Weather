@@ -6,14 +6,14 @@ import com.example.weather.navigator.BaseNavigatorImpl
 import com.example.weather.util.navOptions
 import com.example.weather.util.safeNavigate
 
-interface SearchForeCaseNavigator : BaseNavigator {
+interface SearchWeatherNavigator : BaseNavigator {
     fun openDetail()
 }
 
-class SearchForeCaseNavigatorImpl : BaseNavigatorImpl(), SearchForeCaseNavigator {
+class SearchWeatherNavigatorImpl : BaseNavigatorImpl(), SearchWeatherNavigator {
     override fun openDetail() {
         requireNavigator().safeNavigate(
-            destinationId = R.id.action_open_DetailForeCastFragment,
+            destinationId = R.id.action_open_DetailWeatherFragment,
             navOptions = { navOptions(withAnim = true) }
         )
     }

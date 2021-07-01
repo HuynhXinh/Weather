@@ -3,17 +3,17 @@ package com.example.weather
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
-import com.example.weather.feature.search.SearchForeCaseNavigator
+import com.example.weather.feature.search.SearchWeatherNavigator
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    private val searchForeCaseNavigator: SearchForeCaseNavigator by inject()
+    private val searchWeatherNavigator: SearchWeatherNavigator by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        searchForeCaseNavigator.bind(getNavHostFragment().navController)
+        searchWeatherNavigator.bind(getNavHostFragment().navController)
 
     }
 

@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/SearchForceCastFragment">
+    app:startDestination="@id/SearchWeatherFragment">
 
     <fragment
-        android:id="@+id/SearchForceCastFragment"
+        android:id="@+id/SearchWeatherFragment"
         android:name="com.example.weather.feature.search.SearchWeatherFragment"
-        android:label="SearchForceCastFragment"
+        android:label="SearchWeatherFragment"
         tools:layout="@layout/fragment_search_weather" />
 
     <fragment
-        android:id="@+id/DetailForeCastFragment"
-        android:name="com.example.weather.feature.detail.DetailForeCastFragment"
-        android:label="SearchForceCastFragment"
-        tools:layout="@layout/fragment_detail_forecast" />
+        android:id="@+id/DetailWeatherFragment"
+        android:name="com.example.weather.feature.detail.DetailWeatherFragment"
+        android:label="DetailWeatherFragment"
+        tools:layout="@layout/fragment_detail_weather" />
 
     <action
-        android:id="@+id/action_open_DetailForeCastFragment"
-        app:destination="@id/DetailForeCastFragment" />
+        android:id="@+id/action_open_DetailWeatherFragment"
+        app:destination="@id/DetailWeatherFragment" />
 </navigation>

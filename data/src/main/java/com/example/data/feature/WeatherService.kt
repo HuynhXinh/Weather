@@ -6,9 +6,9 @@ import retrofit2.http.Query
 
 interface WeatherService {
     @GET("2.5/forecast/daily")
-    fun searchForeCast(
+    fun searchWeather(
         @Query("q") query: String?,
         @Query("cnt") cnt: String,
         @Query("appid") appid: String,
-    ): Flow<ForeCastDto>
+    ): Flow<CityWeatherDto>
 }

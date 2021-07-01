@@ -1,18 +1,18 @@
 package com.example.weather.feature.search
 
 import com.example.domain.feature.Element
-import com.example.domain.feature.ForeCast
+import com.example.domain.feature.CityWeather
 
-interface ForeCastMapper {
-    fun toItemForeCasts(foreCast: ForeCast): List<ItemWeather>
+interface WeatherMapper {
+    fun toItemWeathers(cityWeather: CityWeather): List<ItemWeather>
 }
 
-class ForeCastMapperImpl(private val timeFormatter: TimeFormatter) : ForeCastMapper {
-    override fun toItemForeCasts(foreCast: ForeCast): List<ItemWeather> {
-        return foreCast.elements.map { toItemForecast(it) }
+class WeatherMapperImpl(private val timeFormatter: TimeFormatter) : WeatherMapper {
+    override fun toItemWeathers(cityWeather: CityWeather): List<ItemWeather> {
+        return cityWeather.elements.map { toItemWeather(it) }
     }
 
-    private fun toItemForecast(element: Element): ItemWeather {
+    private fun toItemWeather(element: Element): ItemWeather {
         return ItemWeather(
             date = timeFormatter.format(element.dt * 1000),
             aveTemp = formatTemp(element.temp.eve),

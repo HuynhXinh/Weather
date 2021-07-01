@@ -1,7 +1,7 @@
 package com.example.domain.feature
 
 
-data class ForeCast(
+data class CityWeather(
     val city: City,
     val cod: String,
     val message: Double,

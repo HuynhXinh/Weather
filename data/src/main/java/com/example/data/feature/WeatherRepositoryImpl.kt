@@ -1,13 +1,9 @@
 package com.example.data.feature
 
-import com.example.domain.feature.ForeCast
+import com.example.domain.feature.CityWeather
 import com.example.domain.feature.WeatherRepository
-import com.github.ajalt.timberkt.Timber
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-import retrofit2.http.Query
 
 class WeatherRepositoryImpl(
     private val weatherService: WeatherService,
@@ -20,13 +16,13 @@ class WeatherRepositoryImpl(
     // &cnt=7
     // &appid=60c6fbeb4b93ac653c492ba806fc346d
 
-    override fun searchForeCast(query: String): Flow<Result<ForeCast>> {
-        return weatherService.searchForeCast(
+    override fun searchWeather(query: String): Flow<Result<CityWeather>> {
+        return weatherService.searchWeather(
             query = query,
             cnt = "7",
             appid = "60c6fbeb4b93ac653c492ba806fc346d",
         ).map {
-            Result.success(weatherDtoMapper.toForeCast(it))
+            Result.success(weatherDtoMapper.toWeather(it))
         }
     }
 }

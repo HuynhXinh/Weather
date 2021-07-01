@@ -4,11 +4,11 @@ import com.example.domain.base.DispatcherProvider
 import com.example.domain.base.UseCase
 import kotlinx.coroutines.flow.Flow
 
-class SearchForeCastUseCase(
+class SearchWeatherUseCase(
     override val dispatcherProvider: DispatcherProvider,
     private val weatherRepository: WeatherRepository
-) : UseCase<ForeCast, String> {
-    override fun run(params: String): Flow<Result<ForeCast>> {
-        return weatherRepository.searchForeCast(query = params)
+) : UseCase<CityWeather, String> {
+    override fun run(params: String): Flow<Result<CityWeather>> {
+        return weatherRepository.searchWeather(query = params)
     }
 }

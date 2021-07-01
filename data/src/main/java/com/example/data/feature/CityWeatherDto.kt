@@ -2,7 +2,7 @@ package com.example.data.feature
 
 import com.google.gson.annotations.SerializedName
 
-data class ForeCastDto(
+data class CityWeatherDto(
     val city: CityDto,
     val cod: String,
     val message: Double,
