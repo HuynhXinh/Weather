@@ -39,6 +39,11 @@ android {
         sourceCompatibility(JavaVersion.VERSION_1_8)
         targetCompatibility(JavaVersion.VERSION_1_8)
     }
+
+    //ignore duplicate package
+    packagingOptions {
+        exclude("META-INF/*")
+    }
 }
 
 dependencies {
