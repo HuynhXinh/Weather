@@ -1,4 +1,4 @@
-# Run unit test
+# Run unit test MAC
 ```sh
 source run-unit-test.sh && runTest
 
