@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Weather</string>
+
+    <string name="text_date">Date: %s</string>
+    <string name="text_ave_temp">Average temperature: %s</string>
+    <string name="text_pressure">Pressure: %s</string>
+    <string name="text_humidity">Humidity: %s</string>
+    <string name="text_desc">Description: %s</string>
+    <string name="text_get_weather">Get Weather</string>
+</resources>
