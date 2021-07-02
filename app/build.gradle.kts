@@ -1,3 +1,7 @@
+import com.android.build.api.dsl.SigningConfig
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id(Plugins.androidApplication)
     id(Plugins.kotlinAndroid)
@@ -19,7 +23,30 @@ android {
 
         multiDexEnabled = true
 
-        buildConfigField("String","APP_NAME", "\"Weather\"")
+        buildConfigField("String", "APP_NAME", "\"Weather\"")
+    }
+
+    fun setSigningConfig(signingProperties: Properties, signingConfig: SigningConfig) {
+        signingConfig.apply {
+            storeFile = rootProject.file(signingProperties.getProperty("storeFile"))
+            storePassword = signingProperties.getProperty("storePassword")
+            keyAlias = signingProperties.getProperty("keyAlias")
+            keyPassword = signingProperties.getProperty("keyPassword")
+        }
+    }
+
+    signingConfigs {
+        val debugProperties = Properties()
+        debugProperties.load(FileInputStream(rootProject.file("debug.properties")))
+        getByName("debug") {
+            setSigningConfig(signingProperties = debugProperties, signingConfig = this)
+        }
+
+        val releaseProperties = Properties()
+        releaseProperties.load(FileInputStream(rootProject.file("release.properties")))
+        create("release") {
+            setSigningConfig(signingProperties = releaseProperties, signingConfig = this)
+        }
     }
 
     buildTypes {
@@ -27,14 +54,14 @@ android {
             isMinifyEnabled = false
             isDebuggable = true
 
-            buildConfigField("Boolean","LOGGING", "true")
+            buildConfigField("Boolean", "LOGGING", "true")
         }
 
         getByName("release") {
             isMinifyEnabled = false
             isDebuggable = false
 
-            buildConfigField("Boolean","LOGGING", "false")
+            buildConfigField("Boolean", "LOGGING", "false")
 
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
