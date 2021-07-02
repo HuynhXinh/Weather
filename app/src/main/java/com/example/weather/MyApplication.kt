@@ -4,6 +4,7 @@ import androidx.multidex.MultiDexApplication
 import com.example.data.di.repositoryModule
 import com.example.data.di.serviceModule
 import com.example.domain.di.useCaseModule
+import com.example.weather.di.appModule
 import com.example.weather.di.navigatorModule
 import com.example.weather.di.networkModule
 import com.example.weather.di.viewModelModule
@@ -30,6 +31,8 @@ class MyApplication : MultiDexApplication() {
             androidLogger(Level.NONE)
             androidContext(this@MyApplication)
             modules(
+                appModule,
+
                 navigatorModule,
 
                 networkModule,

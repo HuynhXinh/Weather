@@ -7,4 +7,8 @@
     <string name="text_humidity">Humidity: %s</string>
     <string name="text_desc">Description: %s</string>
     <string name="text_get_weather">Get Weather</string>
+
+    <string name="msg_network_error">Network not available</string>
+    <string name="msg_generic_error">oops something went wrong</string>
+    <string name="msg_city_not_found">City not found</string>
 </resources>
