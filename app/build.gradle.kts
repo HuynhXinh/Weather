@@ -54,16 +54,31 @@ android {
             isMinifyEnabled = false
             isDebuggable = true
 
+            signingConfig = signingConfigs.getByName("debug")
+
             buildConfigField("Boolean", "LOGGING", "true")
         }
 
         getByName("release") {
-            isMinifyEnabled = false
-            isDebuggable = false
+            isShrinkResources = true
+            isMinifyEnabled = true
+
+            isDebuggable = true
+
+            setUseProguard(true)
+
+            signingConfig = signingConfigs.getByName("release")
 
             buildConfigField("Boolean", "LOGGING", "false")
 
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                "app-app-proguard-rules.pro",
+
+                "../proguard-rules/retrofit.pro",
+                "../proguard-rules/okhttp.pro",
+                "../proguard-rules/okio.pro"
+            )
         }
     }
 
