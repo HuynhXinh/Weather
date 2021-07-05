@@ -125,7 +125,10 @@ android {
     }
 
     testOptions {
-        unitTests.isIncludeAndroidResources = true
+        unitTests{
+            isIncludeAndroidResources = true
+            animationsDisabled = true
+        }
     }
 }
 
@@ -175,4 +178,11 @@ dependencies {
     testImplementation(Test.core)
     testImplementation(Test.test_core)
     testImplementation(Test.mockk)
+    testImplementation (Test.robolectric)
+
+    // Koin testing tools
+    testImplementation(Test.koin)
+
+    // Needed JUnit version
+    androidTestImplementation(Test.koin_junit4)
 }

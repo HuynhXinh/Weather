@@ -3,6 +3,7 @@ package com.example.weather.feature.search
 import com.example.domain.feature.*
 import com.example.weather.base.BaseTest
 import com.example.weather.feature.captureValues
+import com.example.weather.util.FailureHandler
 import io.mockk.every
 import io.mockk.mockkClass
 import io.mockk.slot
@@ -14,10 +15,12 @@ import org.junit.Test
 class WeatherViewModelTest : BaseTest() {
     private val searchWeatherUseCase: SearchWeatherUseCase = mockkClass(SearchWeatherUseCase::class)
     private val weatherMapper: WeatherMapper = mockkClass(WeatherMapper::class)
+    private val failureHandler: FailureHandler = mockkClass(FailureHandler::class)
 
     private val weatherViewModel = WeatherViewModel(
         searchWeatherUseCase = searchWeatherUseCase,
-        weatherMapper = weatherMapper
+        weatherMapper = weatherMapper,
+        failureHandler = failureHandler
     )
 
     @Test
@@ -26,6 +29,7 @@ class WeatherViewModelTest : BaseTest() {
         every { searchWeatherUseCase(any(), any(), any()) } answers {
             thirdArg<(Result<CityWeather>) -> Unit>().invoke(Result.failure(RuntimeException()))
         }
+        every { failureHandler.getMsg(any()) } returns "mock error msg"
 
         // When
         val captureLoading = weatherViewModel.loading.captureValues()
@@ -42,7 +46,7 @@ class WeatherViewModelTest : BaseTest() {
         MatcherAssert.assertThat(captureLoading[0], `is`(true))
         MatcherAssert.assertThat(captureLoading[1], `is`(false))
 
-        MatcherAssert.assertThat(captureError[0], `is`(instanceOf(RuntimeException::class.java)))
+        MatcherAssert.assertThat(captureError[0], `is`("mock error msg"))
     }
 
     @Test

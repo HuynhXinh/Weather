@@ -1,10 +1,7 @@
 package com.example.data.feature
 
 import com.example.domain.feature.CityWeather
-import io.mockk.every
-import io.mockk.mockkClass
-import io.mockk.slot
-import io.mockk.verify
+import io.mockk.*
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.test.runBlockingTest
@@ -15,10 +12,12 @@ import org.junit.Test
 class WeatherRepositoryImplTest {
     private val weatherService: WeatherService = mockkClass(WeatherService::class)
     private val weatherDtoMapper: WeatherDtoMapper = mockkClass(WeatherDtoMapper::class)
+    private val memCache = mockkClass(MemCache::class)
 
     private val weatherRepository = WeatherRepositoryImpl(
         weatherService = weatherService,
-        weatherDtoMapper = weatherDtoMapper
+        weatherDtoMapper = weatherDtoMapper,
+        memCache = memCache
     )
 
     @Test
@@ -31,6 +30,8 @@ class WeatherRepositoryImplTest {
         every {
             weatherDtoMapper.toWeather(any())
         } returns mockkClass(CityWeather::class)
+
+        every { memCache.getOrNull(any()) } returns null
 
         // When
         try {
@@ -60,6 +61,10 @@ class WeatherRepositoryImplTest {
             weatherDtoMapper.toWeather(any())
         } returns mockkClass(CityWeather::class)
 
+        every { memCache.getOrNull(any()) } returns null
+
+        every { memCache.cache(any(), any()) } just runs
+
         // When
         weatherRepository.searchWeather("saigon").single()
 
@@ -73,8 +78,9 @@ class WeatherRepositoryImplTest {
         }
         val captureCityWeatherDto = slot<CityWeatherDto>()
         verify(exactly = 1) { weatherDtoMapper.toWeather(capture(captureCityWeatherDto)) }
-
         MatcherAssert.assertThat(captureCityWeatherDto.captured.city.id, `is`(999))
+
+        verify(exactly = 1) { memCache.cache("saigon", any()) }
     }
 
     private fun mockCityWeatherDto(): CityWeatherDto {
