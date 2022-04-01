@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.api.ApkVariantOutputImpl
+import com.android.build.api.dsl.SigningConfig
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStream
