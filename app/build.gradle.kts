@@ -267,8 +267,9 @@ fun createReleaseBranch() {
     val description = "Release version: $versionName build: $versionCode"
 
     val branchName = "release/$releaseName"
+    runGitCommand("git","branch", "--show-current")
     runGitCommand("git", "checkout", "-b", branchName)
-    runGitCommand("git", "commit", "-am", description)
+//    runGitCommand("git", "commit", "-am", description)
 //    runGitCommand("git", "push", "--set-upstream","origin", branchName)
 }
 
@@ -344,6 +345,7 @@ fun runGitCommand(vararg command: String) {
 }
 
 fun String.print(tag: String) {
+    if(this.isEmpty()) return
     println("$tag: $this")
 }
 
