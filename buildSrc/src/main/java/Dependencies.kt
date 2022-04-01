@@ -59,4 +59,7 @@ object Test {
     const val test_core = "androidx.test:core:1.3.0"
     const val coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.0"
     const val mockk = "io.mockk:mockk:1.11.0"
+    const val robolectric = "org.robolectric:robolectric:4.5.1"
+    const val koin = "io.insert-koin:koin-test:${Versions.koin}"
+    const val koin_junit4 = "io.insert-koin:koin-test-junit4:${Versions.koin}"
 }

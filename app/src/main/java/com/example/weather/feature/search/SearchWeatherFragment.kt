@@ -22,7 +22,7 @@ class SearchWeatherFragment : Fragment(R.layout.fragment_search_weather) {
 
     private val adapter = DifferentAdapter(
         viewHolderFactory = WeatherViewHolderFactory(
-            onClickItemListener = { searchWeatherNavigator.openDetail() }
+            onClickItemListener = { searchWeatherNavigator.openDetail(it) }
         )::create
     )
 

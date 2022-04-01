@@ -8,8 +8,7 @@ import org.koin.dsl.module
 val useCaseModule = module {
     single<DispatcherProvider> { DispatcherProviderImpl() }
 
-    factory { val searchUseCase =
+    factory {
         SearchWeatherUseCase(dispatcherProvider = get(), weatherRepository = get())
-        searchUseCase
     }
 }

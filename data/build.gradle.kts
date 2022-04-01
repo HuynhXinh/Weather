@@ -23,10 +23,10 @@ android {
         }
 
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             isDebuggable = false
 
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            consumerProguardFile("data-consumer-rules.pro")
         }
     }
 

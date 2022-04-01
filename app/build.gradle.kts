@@ -35,21 +35,59 @@ android {
         buildConfigField("String", "APP_NAME", "\"Weather\"")
     }
 
+    fun setSigningConfig(signingProperties: Properties, signingConfig: SigningConfig) {
+        signingConfig.apply {
+            storeFile = rootProject.file(signingProperties.getProperty("storeFile"))
+            storePassword = signingProperties.getProperty("storePassword")
+            keyAlias = signingProperties.getProperty("keyAlias")
+            keyPassword = signingProperties.getProperty("keyPassword")
+        }
+    }
+
+    signingConfigs {
+        val debugProperties = Properties()
+        debugProperties.load(FileInputStream(rootProject.file("debug.properties")))
+        getByName("debug") {
+            setSigningConfig(signingProperties = debugProperties, signingConfig = this)
+        }
+
+        val releaseProperties = Properties()
+        releaseProperties.load(FileInputStream(rootProject.file("release.properties")))
+        create("release") {
+            setSigningConfig(signingProperties = releaseProperties, signingConfig = this)
+        }
+    }
+
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
             isDebuggable = true
 
+            signingConfig = signingConfigs.getByName("debug")
+
             buildConfigField("Boolean", "LOGGING", "true")
         }
 
         getByName("release") {
-            isMinifyEnabled = false
-            isDebuggable = false
+            isShrinkResources = true
+            isMinifyEnabled = true
+
+            isDebuggable = true
+
+            setUseProguard(true)
+
+            signingConfig = signingConfigs.getByName("release")
 
             buildConfigField("Boolean", "LOGGING", "false")
 
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                "app-app-proguard-rules.pro",
+
+                "../proguard-rules/retrofit.pro",
+                "../proguard-rules/okhttp.pro",
+                "../proguard-rules/okio.pro"
+            )
         }
     }
 
@@ -96,7 +134,10 @@ android {
     }
 
     testOptions {
-        unitTests.isIncludeAndroidResources = true
+        unitTests{
+            isIncludeAndroidResources = true
+            animationsDisabled = true
+        }
     }
 }
 
@@ -146,6 +187,13 @@ dependencies {
     testImplementation(Test.core)
     testImplementation(Test.test_core)
     testImplementation(Test.mockk)
+    testImplementation (Test.robolectric)
+
+    // Koin testing tools
+    testImplementation(Test.koin)
+
+    // Needed JUnit version
+    androidTestImplementation(Test.koin_junit4)
 }
 
 fun getVersionCode(): Int {
